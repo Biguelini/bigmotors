@@ -1,11 +1,14 @@
-import React, { useContext } from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
-import Home from './pages/Home'
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Itens from './pages/Itens'
+import Clients from './pages/Clients'
 
 export default function RouteApps(props) {
     return (
         <Routes>
-            <Route exact path="/" element={<Home />} />
+            <Route path="/" element={<Itens />} />
+            <Route exact path="/itens" element={<Itens />} />
+            <Route exact path="/clientes" element={<Clients />} />
         </Routes>
     )
 }
