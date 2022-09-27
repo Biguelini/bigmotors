@@ -21,3 +21,12 @@ model produtos {
   preco      Float   @db.Float
   disponivel Boolean
 }
+
+model emprestimos {
+  id                Int      @id @default(autoincrement())
+  idCliente         String   @db.VarChar(100)
+  idProduto         String   @db.VarChar(100)
+  dataEmprestimo    DateTime @db.Date
+  dataPrevDevolucao DateTime @db.Date
+  dataDevolucao     DateTime? @db.Date
+}
