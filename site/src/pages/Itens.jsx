@@ -51,8 +51,9 @@ export default function Itens(props) {
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        <th>Telefone</th>
-                        <th>CPF</th>
+                        <th>Preço</th>
+                        <th>Disponível</th>
+                        <th>Imagem</th>
                         <th>Ação</th>
                     </tr>
                 </thead>
@@ -61,7 +62,8 @@ export default function Itens(props) {
                         <tr key={produto.id}>
                             <td>{produto.nome}</td>
                             <td>{produto.preco}</td>
-                            <td>{produto.imagem}</td>
+                            <td>{produto.disponivel?'Sim':'Não'}</td>
+                            <td><img src={produto.imagem} alt="Imagem do carro" /></td>
 
                             <td>
                                 <button

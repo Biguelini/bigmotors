@@ -1,4 +1,4 @@
-.clients{
+.produtos{
     display: flex;
     flex-direction: column; 
     align-items: center;
@@ -31,4 +31,7 @@
 
 .styled-table tbody tr:last-of-type {
     border-bottom: 2px solid var(--primary);
+}
+.styled-table img{
+    width: 100px;
 }

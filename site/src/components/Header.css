@@ -3,9 +3,11 @@ header {
     grid-template-columns: 1fr 5fr;
     padding: 0 15vw;
     align-items: center;
+    background-color: var(--primary);
 }
 header .logo {
     text-align: left;
+    color: white;
 }
 header .nav {
     text-align: right;
@@ -20,4 +22,7 @@ header .nav li {
 }
 header .nav li:not(:last-child){
     margin-right: 8px;
+}
+header .nav li:hover{
+    color: white;
 }

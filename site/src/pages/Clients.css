@@ -32,3 +32,21 @@
 .styled-table tbody tr:last-of-type {
     border-bottom: 2px solid var(--primary);
 }
+form{
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+}
+tr button:not(first-child){
+    margin-left: 16px;
+    margin-top: 0;
+}
+button{
+    padding: 8px 16px;
+    color: white;
+    font-weight: bold;
+    border: none;
+    background-color: var(--secondary);
+    margin-top: 16px;
+    cursor: pointer;
+}

@@ -21,17 +21,34 @@ class EmprestimoController {
             await prisma.$connect()
 
             const { idCliente, idProduto, dataPrevDevolucao } = req.body
-            console.log(idCliente, idProduto,typeof(dataPrevDevolucao))
             const emprestimo = await prisma.emprestimos.create({
                 data: {
-                    idCliente: '123123',
-                    idProduto: '123123',
+                    idCliente,
+                    idProduto,
                     dataEmprestimo: new Date(),
                     dataPrevDevolucao: new Date(dataPrevDevolucao),
                     dataDevolucao: new Date('01/01/1900'),
                 },
             })
+            console.log(idProduto)
             return res.status(201).json(emprestimo)
+
+        } catch (e) {
+            return res.status(500).json(e)
+        } finally {
+            return async () => {
+                await prisma.$disconnect()
+            }
+        }
+    }
+    async devolver(req, res) {
+        try {
+            const { idEmprestimo } = req.body
+            const devolvido = await prisma.emprestimos.update({
+                where: { id: idEmprestimo },
+                data: { dataDevolucao: new Date() },
+            })
+            return res.status(201).json(devolvido)
         } catch (e) {
             return res.status(500).json(e)
         } finally {

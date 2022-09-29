@@ -13,4 +13,5 @@ routes.post('/produtos', ProductsController.registerProduct)
 routes.post('/produtosDelete', ProductsController.deleteProduct)
 routes.get('/emprestimos', EmprestimoController.getEmprestimos)
 routes.post('/emprestimos', EmprestimoController.postEmprestimos)
+routes.post('/devolver', EmprestimoController.devolver)
 module.exports = routes

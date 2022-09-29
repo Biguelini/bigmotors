@@ -4,25 +4,32 @@ import './Emprestimos.css'
 export default function Emprestimos(props) {
     const [emprestimos, setEmpretsimos] = useState([''])
     const getEmprestimos = () => {
-        axios.get('http://localhost:3030/emprestimos').then(function (response) {
-            setEmpretsimos(response.data.allEmprestimos)
-            console.log(response.data)
-        })
+        axios
+            .get('http://localhost:3030/emprestimos')
+            .then(function (response) {
+                setEmpretsimos(response.data.allEmprestimos)
+            })
     }
     useEffect(() => {
         getEmprestimos()
-    }, [])
+    }, [emprestimos])
 
+    const devolver = (idEmprestimo) => {
+        axios.post('http://localhost:3030/devolver', {
+            idEmprestimo,
+        })
+    }
     return (
-        <div className="produtos">
+        <div className="emprestimos">
             <table className="styled-table">
                 <thead>
                     <tr>
-                        <th>IdCliente</th>
-                        <th>IdProduto</th>
-                        <th>Data de Emprestimo</th>
-                        <th>Data Previsão de Devolução</th>
-                        <th>Data de Devolução</th>
+                        <th>Cliente</th>
+                        <th>Produto</th>
+                        <th>Data do empréstimo</th>
+                        <th>Previsão da devolução</th>
+                        <th>Data da devolução</th>
+                        <th>Ação</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,12 +39,25 @@ export default function Emprestimos(props) {
                             <td>{emprestimo.idProduto}</td>
                             <td>{emprestimo.dataEmprestimo}</td>
                             <td>{emprestimo.dataPrevDevolucao}</td>
-                            <td>{emprestimo.dataDevolucao}</td>
+                            <td>
+                                {emprestimo.dataDevolucao ==
+                                '1900-01-01T00:00:00.000Z'
+                                    ? 'emprestado'
+                                    : 'devolvido'}
+                            </td>
+                            <td>
+                                <button
+                                    onClick={() => {
+                                        devolver(emprestimo.id)
+                                    }}
+                                >
+                                    Devolver
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            
         </div>
     )
 }
