@@ -8,7 +8,6 @@ export default function Clients(props) {
     const [telefone, setTelefone] = useState('')
     const getClients = () => {
         axios.get('http://localhost:3030/clientes').then(function (response) {
-            console.log(response.data.allClients)
             setClients(response.data.allClients)
         })
     }
@@ -24,11 +23,12 @@ export default function Clients(props) {
                 console.log(response)
             })
     }
-    const deletar = (clientCpf) => {
+    const deletar = (clientCpf, idCliente) => {
         console.log(clientCpf)
         axios
             .post('http://localhost:3030/clientesDelete', {
                 cpf: clientCpf,
+                id: idCliente,
             })
             .then(function (response) {
                 console.log(response)
@@ -67,7 +67,7 @@ export default function Clients(props) {
                             <td>
                                 <button
                                     onClick={() => {
-                                        deletar(client.cpf)
+                                        deletar(client.cpf, client.id)
                                     }}
                                 >
                                     Deletar

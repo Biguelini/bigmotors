@@ -29,6 +29,7 @@ export default function Emprestimos(props) {
                         <th>Data do empréstimo</th>
                         <th>Previsão da devolução</th>
                         <th>Data da devolução</th>
+                        <th>Status</th>
                         <th>Ação</th>
                     </tr>
                 </thead>
@@ -39,6 +40,7 @@ export default function Emprestimos(props) {
                             <td>{emprestimo.idProduto}</td>
                             <td>{emprestimo.dataEmprestimo}</td>
                             <td>{emprestimo.dataPrevDevolucao}</td>
+                            <td>{emprestimo.dataDevolucao}</td>
                             <td>
                                 {emprestimo.dataDevolucao ==
                                 '1900-01-01T00:00:00.000Z'

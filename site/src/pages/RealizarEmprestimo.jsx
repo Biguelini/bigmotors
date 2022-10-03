@@ -48,18 +48,16 @@ export default function RealizarEmprestimos(props) {
             <form>
                 <label>Cliente</label>
                 <select name="clientes" id="" onChange={changeIdCliente}>
+                    <option value="">Selecione</option>
                     {clients.map((cliente) => (
-                        <option  value={cliente.id}>
-                            {cliente.nome}
-                        </option>
+                        <option value={cliente.id}>{cliente.nome}</option>
                     ))}
                 </select>
                 <label>Produto</label>
                 <select name="produtos" id="" onChange={changeIdProduto}>
+                    <option value="">Selecione</option>
                     {produtos.map((produto) => (
-                        <option  value={produto.id}>
-                            {produto.nome}
-                        </option>
+                        <option value={produto.id}>{produto.nome}</option>
                     ))}
                 </select>
                 <label>Previsão de devolução</label>
