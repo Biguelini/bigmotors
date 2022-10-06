@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './Itens.css'
 export default function Itens(props) {
     const [produtos, setProdutos] = useState([''])
@@ -45,6 +46,10 @@ export default function Itens(props) {
     const changeImagem = (e) => {
         setImagem(e.target.value)
     }
+    const navigate = useNavigate()
+    const goTo = (location) => {
+        return navigate(location)
+    }
     return (
         <div className="produtos">
             <table className="styled-table">
@@ -55,6 +60,7 @@ export default function Itens(props) {
                         <th>Disponível</th>
                         <th>Imagem</th>
                         <th>Ação</th>
+                        <th>Histórico</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -75,6 +81,7 @@ export default function Itens(props) {
                                 </button>
                                 <button>Atualizar</button>
                             </td>
+                            <td><button onClick={()=>{goTo('/itens/'+produto.id.toString())}}>Ver histórico</button></td>
                         </tr>
                     ))}
                 </tbody>

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './Clients.css'
 export default function Clients(props) {
     const [clients, setClients] = useState([''])
@@ -46,6 +47,10 @@ export default function Clients(props) {
     const changeTelefone = (e) => {
         setTelefone(e.target.value)
     }
+    const navigate = useNavigate()
+    const goTo = (location) => {
+        return navigate(location)
+    }
     return (
         <div className="clients">
             <table className="styled-table">
@@ -55,6 +60,7 @@ export default function Clients(props) {
                         <th>Telefone</th>
                         <th>CPF</th>
                         <th>Ação</th>
+                        <th>Histórico</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,6 +80,7 @@ export default function Clients(props) {
                                 </button>
                                 <button>Atualizar</button>
                             </td>
+                            <td><button onClick={()=>{goTo('/clientes/'+client.id.toString())}}>Ver histórico</button></td>
                         </tr>
                     ))}
                 </tbody>

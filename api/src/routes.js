@@ -14,4 +14,7 @@ routes.post('/produtosDelete', ProductsController.deleteProduct)
 routes.get('/emprestimos', EmprestimoController.getEmprestimos)
 routes.post('/emprestimos', EmprestimoController.postEmprestimos)
 routes.post('/devolver', EmprestimoController.devolver)
+routes.post('/produtoEmprestado', EmprestimoController.todosClientesProduto)
+routes.post('/clienteEmprestado', EmprestimoController.todosProdutosClientes)
+routes.get('/clientesComProduto', EmprestimoController.clientesComProduto)
 module.exports = routes

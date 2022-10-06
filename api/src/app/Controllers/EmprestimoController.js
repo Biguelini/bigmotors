@@ -21,16 +21,14 @@ class EmprestimoController {
             await prisma.$connect()
 
             const { idCliente, idProduto, dataPrevDevolucao } = req.body
-            console.log(parseInt(idProduto))
             const estaEmprestado = await prisma.produtos.findUnique({
                 where: { id: parseInt(idProduto) },
             })
-            if (!estaEmprestado) {
+            if (estaEmprestado.disponivel) {
                 const produto = await prisma.produtos.update({
                     where: { id: parseInt(idProduto) },
                     data: { disponivel: false },
                 })
-                console.log(produto)
                 const emprestimo = await prisma.emprestimos.create({
                     data: {
                         idCliente,
@@ -68,6 +66,73 @@ class EmprestimoController {
             })
 
             return res.status(201).json(devolvido)
+        } catch (e) {
+            return res.status(500).json(e)
+        } finally {
+            return async () => {
+                await prisma.$disconnect()
+            }
+        }
+    }
+    async todosClientesProduto(req, res) {
+        try {
+            const { idProduto } = req.body
+            const emprestimosProduto = []
+            const emprestimos = await prisma.emprestimos.findMany()
+            emprestimos.map(function (emprestimo) {
+                if (emprestimo.idProduto == idProduto) {
+
+                    return emprestimosProduto.push(emprestimo)
+                }
+            })
+
+            return res.status(201).json(emprestimosProduto)
+        } catch (e) {
+            return res.status(500).json(e)
+        } finally {
+            return async () => {
+                await prisma.$disconnect()
+            }
+        }
+    }
+    async todosProdutosClientes(req, res) {
+        try {
+            const { idCliente } = req.body
+            const emprestimosCliente = []
+            const emprestimos = await prisma.emprestimos.findMany()
+            emprestimos.map(function (emprestimo) {
+                if (emprestimo.idCliente == idCliente) {
+                    return emprestimosCliente.push(emprestimo)
+                }
+            })
+
+            return res.status(201).json(emprestimosCliente)
+        } catch (e) {
+            return res.status(500).json(e)
+        } finally {
+            return async () => {
+                await prisma.$disconnect()
+            }
+        }
+    }
+    async clientesComProduto(req, res) {
+        try {
+            const clientesComItem = []
+            const emprestimos = await prisma.emprestimos.findMany()
+            const allClients = await prisma.clientes.findMany()
+            emprestimos.map(function (emprestimo) {
+                if (emprestimo.dataDevolucao.toISOString() ==
+                '1900-01-01T00:00:00.000Z') {
+                    allClients.map(function (cliente){
+                        if(cliente.id == emprestimo.idCliente){
+                            clientesComItem.push(cliente.nome)
+                        }
+                    })
+                    
+                }
+            })
+
+            return res.status(201).json(clientesComItem)
         } catch (e) {
             return res.status(500).json(e)
         } finally {

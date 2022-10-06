@@ -4,6 +4,9 @@ import Itens from './pages/Itens'
 import Clients from './pages/Clients'
 import Emprestimos from './pages/Emprestimos'
 import RealizarEmprestimos from './pages/RealizarEmprestimo'
+import HistoricoEmprestimoCliente from './pages/HistoricoEmprestimoCliente'
+import HistoricoEmprestimoProduto from './pages/HistoricoEmprestimoProduto'
+import EmprestimosAtivos from './pages/EmprestimosAtivos'
 
 export default function RouteApps(props) {
     return (
@@ -13,6 +16,10 @@ export default function RouteApps(props) {
             <Route exact path="/clientes" element={<Clients />} />
             <Route exact path="/emprestimos" element={<Emprestimos />} />
             <Route exact path="/fazeremprestimo" element={<RealizarEmprestimos />} />
+            <Route exact path="/clientes/:cliente" element={<HistoricoEmprestimoCliente />} />
+            <Route exact path="/itens/:produto" element={<HistoricoEmprestimoProduto />} />
+            <Route exact path="/ativos" element={<EmprestimosAtivos/>} />
+            <Route exact path="/emprestados" element={<EmprestimosAtivos/>} />
         </Routes>
     )
 }
