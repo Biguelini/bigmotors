@@ -17,4 +17,5 @@ routes.post('/devolver', EmprestimoController.devolver)
 routes.post('/produtoEmprestado', EmprestimoController.todosClientesProduto)
 routes.post('/clienteEmprestado', EmprestimoController.todosProdutosClientes)
 routes.get('/clientesComProduto', EmprestimoController.clientesComProduto)
+routes.get('/emprestimosAtrasados', EmprestimoController.emprestimoAtrasado)
 module.exports = routes

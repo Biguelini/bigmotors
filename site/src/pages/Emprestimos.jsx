@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import './Emprestimos.css'
 export default function Emprestimos(props) {
     const [emprestimos, setEmpretsimos] = useState([''])
+
     const getEmprestimos = () => {
         axios
             .get('http://localhost:3030/emprestimos')
@@ -40,10 +41,12 @@ export default function Emprestimos(props) {
                             <td>{emprestimo.idProduto}</td>
                             <td>{emprestimo.dataEmprestimo}</td>
                             <td>{emprestimo.dataPrevDevolucao}</td>
-                            <td>{emprestimo.dataDevolucao ===
+                            <td>
+                                {emprestimo.dataDevolucao ===
                                 '1900-01-01T00:00:00.000Z'
                                     ? ''
-                                    : emprestimo.dataDevolucao}</td>
+                                    : emprestimo.dataDevolucao}
+                            </td>
                             <td>
                                 {emprestimo.dataDevolucao ===
                                 '1900-01-01T00:00:00.000Z'

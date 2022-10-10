@@ -81,7 +81,6 @@ class EmprestimoController {
             const emprestimos = await prisma.emprestimos.findMany()
             emprestimos.map(function (emprestimo) {
                 if (emprestimo.idProduto == idProduto) {
-
                     return emprestimosProduto.push(emprestimo)
                 }
             })
@@ -121,20 +120,44 @@ class EmprestimoController {
             const emprestimos = await prisma.emprestimos.findMany()
             const allClients = await prisma.clientes.findMany()
             emprestimos.map(function (emprestimo) {
-                if (emprestimo.dataDevolucao.toISOString() ==
-                '1900-01-01T00:00:00.000Z') {
-                    allClients.map(function (cliente){
-                        if(cliente.id == emprestimo.idCliente){
+                if (
+                    emprestimo.dataDevolucao.toISOString() ==
+                    '1900-01-01T00:00:00.000Z'
+                ) {
+                    allClients.map(function (cliente) {
+                        if (cliente.id == emprestimo.idCliente) {
                             clientesComItem.push(cliente.nome)
                         }
                     })
-                    
                 }
             })
 
             return res.status(201).json(clientesComItem)
         } catch (e) {
             return res.status(500).json(e)
+        } finally {
+            return async () => {
+                await prisma.$disconnect()
+            }
+        }
+    }
+    async emprestimoAtrasado(req, res) {
+        try {
+            await prisma.$connect()
+            const emprestimos = []
+            const allEmprestimos = await prisma.emprestimos.findMany()
+            allEmprestimos.map(function (emprestimo) {
+                if (
+                    emprestimo.dataPrevDevolucao < new Date() &&
+                    emprestimo.dataDevolucao.toISOString() ==
+                        '1900-01-01T00:00:00.000Z'
+                ) {
+                    emprestimos.push(emprestimo)
+                }
+            })
+            return res.status(200).json({ emprestimos })
+        } catch (e) {
+            return res.status(404).json(e)
         } finally {
             return async () => {
                 await prisma.$disconnect()

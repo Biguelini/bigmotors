@@ -14,6 +14,7 @@ export default function Header(props) {
                 <li onClick={()=>{goTo('/emprestimos')}}>Empréstimos</li>
                 <li onClick={()=>{goTo('/clientes')}}>Clientes</li>
                 <li onClick={()=>{goTo('/ativos')}}>Empréstimos ativos</li>
+                <li onClick={()=>{goTo('/atrasados')}}>Ver atrasados</li>
                 <li onClick={()=>{goTo('/fazeremprestimo')}}>Realizar empréstimo</li>
             </ul>
         </header>
