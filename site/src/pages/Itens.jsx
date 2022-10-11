@@ -21,7 +21,13 @@ export default function Itens(props) {
                 imagem: imagem,
             })
             .then(function (response) {
-                console.log(response)
+                alert('Produto cadastrado')
+                setNome('')
+                setPreco('')
+                setImagem('')
+            }).catch(function(e){
+                alert('Algo deu errado')
+                return console.log(e)
             })
     }
     const deletar = (itenId) => {
@@ -31,7 +37,10 @@ export default function Itens(props) {
                 id: itenId,
             })
             .then(function (response) {
-                console.log(response)
+                alert('Produto deletado')
+            }).catch(function(e){
+                alert('Algo deu errado')
+                return console.log(e)
             })
     }
     useEffect(() => {
@@ -90,7 +99,7 @@ export default function Itens(props) {
                 <label>Nome</label>
                 <input type="text" value={nome} onChange={changeName} />
                 <label>Preço</label>
-                <input type="number" value={preco} onChange={changePreco} />
+                <input type="number" value={preco} onChange={changePreco} step="0.1" min="0"/>
                 <label>Imagem</label>
                 <input type="text" value={imagem} onChange={changeImagem} />
             </form>

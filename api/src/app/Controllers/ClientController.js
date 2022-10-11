@@ -74,24 +74,22 @@ class ClientController {
 
             const { cpf, id } = req.body
             console.log(id)
-            
-            if (cpf != '' && id !='') {
+
+            if (cpf != '' && id != '') {
                 const emprestouAlgo = await prisma.emprestimos.findMany({
                     where: { idCliente: id.toString() },
                 })
-                if(emprestouAlgo){
+                if (emprestouAlgo) {
                     return res.status(403).json('Fez empréstimo')
                 }
                 console.log(emprestouAlgo ? true : false)
                 const deletedClient = await prisma.clientes.delete({
                     where: { cpf: cpf },
                 })
-                return res
-                    .status(200)
-                    .json({
-                        message: 'Client deleted with sucess',
-                        deletedClient,
-                    })
+                return res.status(200).json({
+                    message: 'Client deleted with sucess',
+                    deletedClient,
+                })
             }
         } catch (e) {
             return res.status(500).json(e)

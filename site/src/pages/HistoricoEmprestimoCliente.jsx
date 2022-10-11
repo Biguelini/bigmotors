@@ -17,7 +17,7 @@ export default function Emprestimos(props) {
     useEffect(() => {
         getHistorico()
     }, [historico])
-    
+
     return (
         <div className="emprestimos">
             <table className="styled-table">
@@ -35,15 +35,30 @@ export default function Emprestimos(props) {
                         <tr key={emprestimo.id}>
                             <td>{emprestimo.idCliente}</td>
                             <td>{emprestimo.idProduto}</td>
-                            <td>{emprestimo.dataEmprestimo}</td>
-                            <td>{emprestimo.dataPrevDevolucao}</td>
+                            <td>
+                                {emprestimo.dataEmprestimo
+                                    ?.split('T')[0]
+                                    .split('-')
+                                    .reverse()
+                                    .join('/')}
+                            </td>
+                            <td>
+                                {emprestimo.dataPrevDevolucao
+                                    ?.split('T')[0]
+                                    .split('-')
+                                    .reverse()
+                                    .join('/')}
+                            </td>
                             <td>
                                 {emprestimo.dataDevolucao ===
                                 '1900-01-01T00:00:00.000Z'
                                     ? 'emprestado'
-                                    : emprestimo.dataDevolucao}
+                                    : emprestimo.dataDevolucao
+                                          ?.split('T')[0]
+                                          .split('-')
+                                          .reverse()
+                                          .join('/')}
                             </td>
-                            
                         </tr>
                     ))}
                 </tbody>

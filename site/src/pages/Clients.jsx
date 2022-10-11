@@ -12,6 +12,7 @@ export default function Clients(props) {
             setClients(response.data.allClients)
         })
     }
+    
     const cadastrar = () => {
         console.log(nome, cpf, telefone)
         axios
@@ -21,7 +22,13 @@ export default function Clients(props) {
                 telefone: telefone,
             })
             .then(function (response) {
-                console.log(response)
+                alert('Cliente cadastrado')
+                setNome('')
+                setCpf('')
+                setTelefone('')
+            }).catch(function(e){
+                alert('Algo deu errado')
+                return console.log(e)
             })
     }
     const deletar = (clientCpf, idCliente) => {
@@ -32,7 +39,10 @@ export default function Clients(props) {
                 id: idCliente,
             })
             .then(function (response) {
-                console.log(response)
+                alert('Cliente deletado')
+            }).catch(function(e){
+                alert('Algo deu errado')
+                return console.log(e)
             })
     }
     useEffect(() => {

@@ -9,6 +9,7 @@ export default function Emprestimos(props) {
             .get('http://localhost:3030/emprestimos')
             .then(function (response) {
                 setEmpretsimos(response.data.allEmprestimos)
+               
             })
     }
     useEffect(() => {
@@ -18,6 +19,11 @@ export default function Emprestimos(props) {
     const devolver = (idEmprestimo) => {
         axios.post('http://localhost:3030/devolver', {
             idEmprestimo,
+        }).then(function (response){
+            alert('Produto devolvido')
+        }).catch(function(e){
+            alert('Algo deu errado')
+            return console.log(e)
         })
     }
     return (
@@ -30,28 +36,30 @@ export default function Emprestimos(props) {
                         <th>Data do empréstimo</th>
                         <th>Previsão da devolução</th>
                         <th>Data da devolução</th>
-                        <th>Status</th>
                         <th>Ação</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {emprestimos.map((emprestimo) => (
+                    {emprestimos?.map((emprestimo) => (
                         <tr key={emprestimo.id}>
                             <td>{emprestimo.idCliente}</td>
                             <td>{emprestimo.idProduto}</td>
-                            <td>{emprestimo.dataEmprestimo}</td>
-                            <td>{emprestimo.dataPrevDevolucao}</td>
-                            <td>
-                                {emprestimo.dataDevolucao ===
-                                '1900-01-01T00:00:00.000Z'
-                                    ? ''
-                                    : emprestimo.dataDevolucao}
-                            </td>
+                            <td>{emprestimo.dataEmprestimo?.split('T')[0]
+                                    .split('-')
+                                    .reverse()
+                                    .join('/')}</td>
+                            <td>{emprestimo.dataPrevDevolucao?.split('T')[0]
+                                    .split('-')
+                                    .reverse()
+                                    .join('/')}</td>
                             <td>
                                 {emprestimo.dataDevolucao ===
                                 '1900-01-01T00:00:00.000Z'
                                     ? 'emprestado'
-                                    : 'devolvido'}
+                                    : emprestimo.dataDevolucao?.split('T')[0]
+                                    .split('-')
+                                    .reverse()
+                                    .join('/')}
                             </td>
                             <td>
                                 <button

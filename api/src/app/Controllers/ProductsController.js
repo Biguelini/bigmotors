@@ -1,7 +1,10 @@
 const { PrismaClient } = require('@prisma/client')
 
 const prisma = new PrismaClient()
-
+const verifyImage = (imagem) =>{
+    const re = /(http[s]*:\/\/)([a-z\-_0-9\/.]+)\.([a-z.]{2,3})\/([a-z0-9\-_\/._~:?#\[\]@!$&'()*+,;=%]*)([a-z0-9]+\.)(jpg|jpeg|png)/i
+    return re.test(imagem)
+}
 class ProductsController {
     async getProducts(req, res) {
         try {
@@ -21,7 +24,7 @@ class ProductsController {
             await prisma.$connect()
 
             const { nome, imagem, preco } = req.body
-            if (nome == '' || imagem == '' || preco == '') {
+            if (nome == '' || imagem == '' || preco == '' || !verifyImage(imagem) || preco<0) {
                 return res.status(406).json({ message: 'Invalid data' })
             } else {
                 const createdProduct = await prisma.produtos.create({

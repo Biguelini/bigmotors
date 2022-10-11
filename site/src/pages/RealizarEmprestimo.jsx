@@ -41,6 +41,14 @@ export default function RealizarEmprestimos(props) {
             })
             .then(function (response) {
                 console.log(response)
+                alert('Emprestimo realizado')
+                setIdCliente('')
+                setIdProduto('')
+                setDataPrevDevolucao('')
+            })
+            .catch(function (e) {
+                alert('Algo deu errado')
+                return console.log(e)
             })
     }
     return (

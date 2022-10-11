@@ -7,6 +7,20 @@ class EmprestimoController {
         try {
             await prisma.$connect()
             const allEmprestimos = await prisma.emprestimos.findMany()
+            const allClients = await prisma.clientes.findMany()
+            const allProducts = await prisma.produtos.findMany()
+            allEmprestimos.map(function (emprestimo) {
+                allClients.map(function (cliente) {
+                    if (cliente.id == emprestimo.idCliente) {
+                        emprestimo.idCliente = emprestimo.idCliente + ' - ' +cliente.nome
+                    }
+                })
+                allProducts.map(function (produto) {
+                    if (produto.id == emprestimo.idProduto) {
+                        emprestimo.idProduto = emprestimo.idProduto + ' - ' + produto.nome
+                    }
+                })
+            })
             return res.status(200).json({ allEmprestimos })
         } catch (e) {
             return res.status(404).json(e)
@@ -79,8 +93,20 @@ class EmprestimoController {
             const { idProduto } = req.body
             const emprestimosProduto = []
             const emprestimos = await prisma.emprestimos.findMany()
+            const allClients = await prisma.clientes.findMany()
+            const allProducts = await prisma.produtos.findMany()
             emprestimos.map(function (emprestimo) {
                 if (emprestimo.idProduto == idProduto) {
+                    allClients.map(function (cliente) {
+                        if (cliente.id == emprestimo.idCliente) {
+                            emprestimo.idCliente = emprestimo.idCliente + ' - ' +cliente.nome
+                        }
+                    })
+                    allProducts.map(function (produto) {
+                        if (produto.id == emprestimo.idProduto) {
+                            emprestimo.idProduto = emprestimo.idProduto + ' - ' + produto.nome
+                        }
+                    })
                     return emprestimosProduto.push(emprestimo)
                 }
             })
@@ -99,8 +125,20 @@ class EmprestimoController {
             const { idCliente } = req.body
             const emprestimosCliente = []
             const emprestimos = await prisma.emprestimos.findMany()
+            const allClients = await prisma.clientes.findMany()
+            const allProducts = await prisma.produtos.findMany()
             emprestimos.map(function (emprestimo) {
                 if (emprestimo.idCliente == idCliente) {
+                    allClients.map(function (cliente) {
+                        if (cliente.id == emprestimo.idCliente) {
+                            emprestimo.idCliente = emprestimo.idCliente + ' - ' +cliente.nome
+                        }
+                    })
+                    allProducts.map(function (produto) {
+                        if (produto.id == emprestimo.idProduto) {
+                            emprestimo.idProduto = emprestimo.idProduto + ' - ' + produto.nome
+                        }
+                    })
                     return emprestimosCliente.push(emprestimo)
                 }
             })
@@ -146,12 +184,24 @@ class EmprestimoController {
             await prisma.$connect()
             const emprestimos = []
             const allEmprestimos = await prisma.emprestimos.findMany()
+            const allClients = await prisma.clientes.findMany()
+            const allProducts = await prisma.produtos.findMany()
             allEmprestimos.map(function (emprestimo) {
                 if (
                     emprestimo.dataPrevDevolucao < new Date() &&
                     emprestimo.dataDevolucao.toISOString() ==
                         '1900-01-01T00:00:00.000Z'
                 ) {
+                    allClients.map(function (cliente) {
+                        if (cliente.id == emprestimo.idCliente) {
+                            emprestimo.idCliente = emprestimo.idCliente + ' - ' +cliente.nome
+                        }
+                    })
+                    allProducts.map(function (produto) {
+                        if (produto.id == emprestimo.idProduto) {
+                            emprestimo.idProduto = emprestimo.idProduto + ' - ' + produto.nome
+                        }
+                    })
                     emprestimos.push(emprestimo)
                 }
             })
