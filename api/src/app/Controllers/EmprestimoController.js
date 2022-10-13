@@ -38,10 +38,13 @@ class EmprestimoController {
             if(new Date(dataPrevDevolucao) < new Date()){
                 return res.status(403).json('Previsão de devolução inválida')
             }
+            if(dataPrevDevolucao == null){
+                return res.status(404).json('Previsão de devolução inválida')
+            }
             const estaEmprestado = await prisma.produtos.findUnique({
                 where: { id: parseInt(idProduto) },
             })
-            if (estaEmprestado.disponivel) {
+            if (estaEmprestado.disponivel && dataPrevDevolucao != '') {
                 const produto = await prisma.produtos.update({
                     where: { id: parseInt(idProduto) },
                     data: { disponivel: false },
