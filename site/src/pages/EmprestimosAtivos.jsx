@@ -26,6 +26,7 @@ export default function Emprestimos(props) {
     }
     return (
         <div className="emprestimos">
+            <h1>Empréstimos ativos</h1>
             <table className="styled-table">
                 <thead>
                     <tr>
@@ -33,7 +34,6 @@ export default function Emprestimos(props) {
                         <th>Produto</th>
                         <th>Data do empréstimo</th>
                         <th>Previsão da devolução</th>
-                        <th>Data da devolução</th>
                         <th>Ação</th>
                     </tr>
                 </thead>
@@ -54,15 +54,6 @@ export default function Emprestimos(props) {
                                     .reverse()
                                     .join('/')}</td>
 
-                                    <td>
-                                        {emprestimo.dataDevolucao ===
-                                        '1900-01-01T00:00:00.000Z'
-                                            ? 'emprestado'
-                                            : emprestimo.dataDevolucao?.split('T')[0]
-                                            .split('-')
-                                            .reverse()
-                                            .join('/')}
-                                    </td>
                                     <td>
                                         <button
                                             onClick={() => {

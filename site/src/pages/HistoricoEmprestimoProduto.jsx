@@ -20,6 +20,8 @@ export default function Emprestimos(props) {
 
     return (
         <div className="emprestimos">
+                        <h1>Histórico carro</h1>
+
             <table className="styled-table">
                 <thead>
                     <tr>

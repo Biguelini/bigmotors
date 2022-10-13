@@ -47,12 +47,14 @@ export default function RealizarEmprestimos(props) {
                 setDataPrevDevolucao('')
             })
             .catch(function (e) {
-                alert('Algo deu errado')
+                alert('Preencha os dados corretamente')
                 return console.log(e)
             })
     }
     return (
         <div className="emprestimosform">
+                        <h1>Emprestar carro</h1>
+
             <form>
                 <label>Cliente</label>
                 <select name="clientes" id="" onChange={changeIdCliente}>
@@ -81,7 +83,7 @@ export default function RealizarEmprestimos(props) {
                     cadastrar()
                 }}
             >
-                Enviar
+                Emprestar
             </button>
         </div>
     )

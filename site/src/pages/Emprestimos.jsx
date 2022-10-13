@@ -20,7 +20,7 @@ export default function Emprestimos(props) {
         axios.post('http://localhost:3030/devolver', {
             idEmprestimo,
         }).then(function (response){
-            alert('Produto devolvido')
+            alert('Carro devolvido')
         }).catch(function(e){
             alert('Algo deu errado')
             return console.log(e)
@@ -28,6 +28,7 @@ export default function Emprestimos(props) {
     }
     return (
         <div className="emprestimos">
+            <h1>Empréstimos</h1>
             <table className="styled-table">
                 <thead>
                     <tr>

@@ -27,7 +27,7 @@ export default function Clients(props) {
                 setCpf('')
                 setTelefone('')
             }).catch(function(e){
-                alert('Algo deu errado')
+                alert('Preencha os dados corretamente')
                 return console.log(e)
             })
     }
@@ -63,6 +63,7 @@ export default function Clients(props) {
     }
     return (
         <div className="clients">
+            <h1>Clientes</h1>
             <table className="styled-table">
                 <thead>
                     <tr>
@@ -108,7 +109,7 @@ export default function Clients(props) {
                     cadastrar()
                 }}
             >
-                Enviar
+                Cadastrar
             </button>
         </div>
     )

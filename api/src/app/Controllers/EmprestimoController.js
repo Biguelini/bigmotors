@@ -35,6 +35,9 @@ class EmprestimoController {
             await prisma.$connect()
 
             const { idCliente, idProduto, dataPrevDevolucao } = req.body
+            if(new Date(dataPrevDevolucao) < new Date()){
+                return res.status(403).json('Previsão de devolução inválida')
+            }
             const estaEmprestado = await prisma.produtos.findUnique({
                 where: { id: parseInt(idProduto) },
             })

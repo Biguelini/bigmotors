@@ -11,6 +11,10 @@ const validateNumber = (number) => {
         /^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$/
     return re.test(number)
 }
+const validateName = (name) => {
+    const re = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/
+    return re.test(name)
+}
 
 class ClientController {
     async getClients(req, res) {
@@ -36,7 +40,8 @@ class ClientController {
                 telefone == '' ||
                 cpf == '' ||
                 validateCpf(cpf) === false ||
-                validateNumber(telefone) === false
+                validateNumber(telefone) === false ||
+                validateName(nome) === false
             ) {
                 return res.status(406).json({ message: 'Invalid data' })
             } else {
@@ -73,16 +78,14 @@ class ClientController {
             await prisma.$connect()
 
             const { cpf, id } = req.body
-            console.log(id)
 
             if (cpf != '' && id != '') {
                 const emprestouAlgo = await prisma.emprestimos.findMany({
                     where: { idCliente: id.toString() },
                 })
-                if (emprestouAlgo) {
+                if (emprestouAlgo.length >= 1) {
                     return res.status(403).json('Fez empréstimo')
                 }
-                console.log(emprestouAlgo ? true : false)
                 const deletedClient = await prisma.clientes.delete({
                     where: { cpf: cpf },
                 })

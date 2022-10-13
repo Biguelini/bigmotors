@@ -21,12 +21,12 @@ export default function Itens(props) {
                 imagem: imagem,
             })
             .then(function (response) {
-                alert('Produto cadastrado')
+                alert('Carro cadastrado')
                 setNome('')
                 setPreco('')
                 setImagem('')
             }).catch(function(e){
-                alert('Algo deu errado')
+                alert('Verifique os dados do carro')
                 return console.log(e)
             })
     }
@@ -37,9 +37,9 @@ export default function Itens(props) {
                 id: itenId,
             })
             .then(function (response) {
-                alert('Produto deletado')
+                alert('Carro deletado')
             }).catch(function(e){
-                alert('Algo deu errado')
+                alert('Carro já participou de empréstimo')
                 return console.log(e)
             })
     }
@@ -61,6 +61,7 @@ export default function Itens(props) {
     }
     return (
         <div className="produtos">
+            <h1>Carros</h1>
             <table className="styled-table">
                 <thead>
                     <tr>
@@ -108,7 +109,7 @@ export default function Itens(props) {
                     cadastrar()
                 }}
             >
-                Enviar
+                Cadastrar
             </button>
         </div>
     )
